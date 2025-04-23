@@ -1,8 +1,11 @@
 import React from "react";
 import { PlayCircle } from "lucide-react";
-import aboutImage from "../assets/images/aboutImage.png"; // ✅ Correct import
+import aboutImage from "../assets/images/aboutImage.png"; // Keep this import style
 
 export const AboutSection: React.FC = () => {
+  // Add this temporary debug code
+  console.log('Image path:', aboutImage); // Should show a resolved path
+  
   return (
     <section
       id="about"
@@ -13,16 +16,21 @@ export const AboutSection: React.FC = () => {
         <p className="text-2xl sm:text-3xl md:text-5xl font-extrabold leading-tight">
           Why Enver Is The <br /> Best Choice?
         </p>
-
         <p className="text-gray-400 md:max-w-md">
           Watch this one minute video so you understand why you should use our services!
         </p>
       </div>
-      <div className="relative group cursor-pointer overflow-hidden rounded-xl">
+      
+      {/* Added image container with debug border */}
+      <div className="relative group cursor-pointer overflow-hidden rounded-xl border-2 border-red-500">
         <img
-          src={aboutImage} // ✅ Now Vite will handle this properly
+          src={aboutImage}
           alt="Team Meeting"
           className="rounded-xl w-full max-h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
+          onError={(e) => {
+            console.error('Image failed to load');
+            (e.target as HTMLImageElement).style.border = '2px solid red'; // Visual error indicator
+          }}
         />
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center transition-opacity duration-300 group-hover:bg-black/40">
           <div className="bg-indigo-500 p-6 rounded-full transition-transform duration-300 group-hover:scale-110">
